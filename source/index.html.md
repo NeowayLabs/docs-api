@@ -1,15 +1,15 @@
 ---
-title: API Reference
+title: Data API - Neoway
 
 language_tabs: # must be one of https://git.io/vQNgJ
   - shell
+  - go
   - ruby
   - python
   - javascript
 
 toc_footers:
-  - <a href='#'>Sign Up for a Developer Key</a>
-  - <a href='https://github.com/slatedocs/slate'>Documentation Powered by Slate</a>
+  - Developed by <a href='https://neoway.com.br'>Neoway</a>
 
 includes:
   - errors
@@ -21,167 +21,396 @@ code_clipboard: true
 
 # Introduction
 
-Welcome to the Kittn API! You can use our API to access Kittn API endpoints, which can get information on various cats, kittens, and breeds in our database.
+Welcome to the Data API! You can use our API to access the data sources, which can get information on various people, company, and other documents in our database.
 
-We have language bindings in Shell, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
+We have language bindings in Shell, Go, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
 
-This example API documentation page was created with [Slate](https://github.com/slatedocs/slate). Feel free to edit it and use it as a base for your own API's documentation.
+If you're familiar with the postman, here are the collections to import.
+
+<div class="postman-run-button"
+  data-postman-action="collection/import"
+  data-postman-var-1="864f0579179de207592f">
+</div>
 
 # Authentication
 
 > To authorize, use this code:
 
-```ruby
-require 'kittn'
+```go
+package main
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-```
+import (
+  "fmt"
+  "bytes"
+  "mime/multipart"
+  "net/http"
+  "io/ioutil"
+)
 
-```python
-import kittn
+func main() {
 
-api = kittn.authorize('meowmeowmeow')
-```
+  url := "https://api.neoway.com.br/oauth2/token"
+  method := "POST"
 
-```shell
-# With shell, you can just pass the correct header with each request
-curl "api_endpoint_here" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-```
-
-> Make sure to replace `meowmeowmeow` with your API key.
-
-Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
-
-Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
-
-`Authorization: meowmeowmeow`
-
-<aside class="notice">
-You must replace <code>meowmeowmeow</code> with your personal API key.
-</aside>
-
-# Kittens
-
-## Get All Kittens
-
-```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get
-```
-
-```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get()
-```
-
-```shell
-curl "http://example.com/api/kittens" \
-  -H "Authorization: meowmeowmeow"
-```
-
-```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let kittens = api.kittens.get();
-```
-
-> The above command returns JSON structured like this:
-
-```json
-[
-  {
-    "id": 1,
-    "name": "Fluffums",
-    "breed": "calico",
-    "fluffiness": 6,
-    "cuteness": 7
-  },
-  {
-    "id": 2,
-    "name": "Max",
-    "breed": "unknown",
-    "fluffiness": 5,
-    "cuteness": 10
+  payload := &bytes.Buffer{}
+  writer := multipart.NewWriter(payload)
+  _ = writer.WriteField("client_id", "<your-client-id")
+  _ = writer.WriteField("client_secret", "<your-client-secret>")
+  _ = writer.WriteField("grant_type", "client_credentials")
+  err := writer.Close()
+  if err != nil {
+    fmt.Println(err)
+    return
   }
-]
+
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, payload)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+
+  req.Header.Set("Content-Type", writer.FormDataContentType())
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
 ```
 
-This endpoint retrieves all kittens.
-
-### HTTP Request
-
-`GET http://example.com/api/kittens`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-include_cats | false | If set to true, the result will also include cats.
-available | true | If set to false, the result will include kittens that have already been adopted.
-
-<aside class="success">
-Remember — a happy kitten is an authenticated kitten!
-</aside>
-
-## Get a Specific Kitten
-
 ```ruby
-require 'kittn'
+require "uri"
+require "net/http"
 
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.get(2)
+url = URI("https://api.neoway.com.br/oauth2/token")
+
+https = Net::HTTP.new(url.host, url.port)
+https.use_ssl = true
+
+request = Net::HTTP::Post.new(url)
+request["Content-Type"] = "application/x-www-form-urlencoded"
+form_data = [['client_id', '<your-client-id'],['client_secret', '<your-client-secret>'],['grant_type', 'client_credentials']]
+request.set_form form_data, 'multipart/form-data'
+response = https.request(request)
+puts response.read_body
 ```
 
 ```python
-import kittn
+import requests
 
-api = kittn.authorize('meowmeowmeow')
-api.kittens.get(2)
+headers = {
+    'Content-Type': 'application/x-www-form-urlencoded',
+}
+
+response = requests.post('https://api.neoway.com.br/oauth2/token', headers=headers)
 ```
 
 ```shell
-curl "http://example.com/api/kittens/2" \
-  -H "Authorization: meowmeowmeow"
+curl -X POST 'https://api.neoway.com.br/oauth2/token' \
+  --header 'Content-Type: application/x-www-form-urlencoded' \
+  --form 'client_id="<your-client-id>"' \
+  --form 'client_secret="<your-client-secret>"' \
+  --form 'grant_type="client_credentials"'
 ```
 
 ```javascript
-const kittn = require('kittn');
+var myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.get(2);
+var formdata = new FormData();
+formdata.append("client_id", "<your-client-id>");
+formdata.append("client_secret", "<your-client-secret>");
+formdata.append("grant_type", "client_credentials");
+
+var requestOptions = {
+  method: 'POST',
+  headers: myHeaders,
+  body: formdata,
+  redirect: 'follow'
+};
+
+fetch("https://api.neoway.com.br/oauth2/token", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "name": "Max",
-  "breed": "unknown",
-  "fluffiness": 5,
-  "cuteness": 10
+  "access_token": "<your-bearer-token>",
+  "expires_in": 1799,
+  "scope": "scope.read",
+  "token_type": "bearer"
 }
 ```
 
-This endpoint retrieves a specific kitten.
+Kittn uses API keys to allow access to the API. You can register a new Kittn API key at our [developer portal](http://example.com/developers).
 
-<aside class="warning">Inside HTML code blocks like this one, you can't use Markdown, so use <code>&lt;code&gt;</code> blocks to denote code.</aside>
+Kittn expects for the API key to be included in all API requests to the server in a header that looks like the following:
+
+`Authorization: Bearer <your-bearer-token>`
+
+<aside class="notice">
+  You must replace <code>your-bearer-token</code> with your personal API key.
+</aside>
+
+# Data API
+
+The data API provides information about a specific domain identified by a key.
+
+## Get a Person Data
+
+> To get a person data, use this code:
+
+```go
+package main
+
+import (
+  "fmt"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "https://api.neoway.com.br/v1/data/pessoas/:cpf"
+  method := "GET"
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, nil)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("Authorization", "Bearer <your-bearer-token>")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("https://api.neoway.com.br/v1/data/pessoas/:cpf")
+
+https = Net::HTTP.new(url.host, url.port)
+https.use_ssl = true
+
+request = Net::HTTP::Get.new(url)
+request["Authorization"] = "Bearer <your-client-id>"
+
+response = https.request(request)
+puts response.read_body
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("api.neoway.com.br")
+payload = ''
+headers = {
+  'Authorization': 'Bearer <your-bearer-token>'
+}
+conn.request("GET", "/v1/data/pessoas/:cpf", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```shell
+curl --location --request GET 'https://api.neoway.com.br/v1/data/pessoas/:cpf' \
+  --header 'Authorization: Bearer <your-bearer-token>'
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer <your-bearer-token>");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://api.neoway.com.br/v1/data/pessoas/:cpf", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "pessoa": {
+    "cpf": "<cpf>",
+    "nome": "<Nome da Pessoa>"
+    ...
+  }
+}
+```
+
+This endpoint returns a person's data.
 
 ### HTTP Request
 
-`GET http://example.com/kittens/<ID>`
+`GET https://api.neoway.com.br/v1/data/pessoas/:cpf`
+
+### Path Parameters
+
+Parameter | Description
+--------- | -----------
+cpf | key field represented by the cpf to obtain a person's data.
+metadata | If set to false, hides metadata. If true, shows metadata.
+
+<aside class="success">
+  Remember — this endpoint needs authentication!
+</aside>
+
+## Get a Company Data
+
+```go
+package main
+
+import (
+  "fmt"
+  "net/http"
+  "io/ioutil"
+)
+
+func main() {
+
+  url := "https://api.neoway.com.br/v1/data/empresas/:cnpj"
+  method := "GET"
+
+  client := &http.Client {
+  }
+  req, err := http.NewRequest(method, url, nil)
+
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  req.Header.Add("Authorization", "Bearer <your-bearer-token>")
+
+  res, err := client.Do(req)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  defer res.Body.Close()
+
+  body, err := ioutil.ReadAll(res.Body)
+  if err != nil {
+    fmt.Println(err)
+    return
+  }
+  fmt.Println(string(body))
+}
+```
+
+```ruby
+require "uri"
+require "net/http"
+
+url = URI("https://api.neoway.com.br/v1/data/empresas/:cnpj")
+
+https = Net::HTTP.new(url.host, url.port)
+https.use_ssl = true
+
+request = Net::HTTP::Get.new(url)
+request["Authorization"] = "Bearer <your-bearer-token>"
+
+response = https.request(request)
+puts response.read_body
+```
+
+```python
+import http.client
+
+conn = http.client.HTTPSConnection("api.neoway.com.br")
+payload = ''
+headers = {
+  'Authorization': 'Bearer <your-bearer-token>'
+}
+conn.request("GET", "/v1/data/empresas/:cnpj", payload, headers)
+res = conn.getresponse()
+data = res.read()
+print(data.decode("utf-8"))
+```
+
+```shell
+curl -X GET 'https://api.neoway.com.br/v1/data/empresas/:cnpj' \
+  --header 'Authorization: Bearer <your-bearer-token>'
+```
+
+```javascript
+var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer <your-bearer-token>");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("https://api.neoway.com.br/v1/data/empresas/:cnpj", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
+```
+
+> The above command returns JSON structured like this:
+
+```json
+{
+  "empresa": {
+    "cnpj": "<cnpj>",
+    "razaoSocial": "<razao-social>",
+    ...
+  }
+}
+```
+
+This endpoint retrieves a specific company by cnpj key.
+
+<aside class="success">
+  Remember — this endpoint needs authentication!
+</aside>
+
+### HTTP Request
+
+`GET https://api.neoway.com.br/v1/data/empresas/:cnpj`
 
 ### URL Parameters
 
@@ -189,53 +418,41 @@ Parameter | Description
 --------- | -----------
 ID | The ID of the kitten to retrieve
 
-## Delete a Specific Kitten
+## Get a Specific Process
 
 ```ruby
-require 'kittn'
-
-api = Kittn::APIClient.authorize!('meowmeowmeow')
-api.kittens.delete(2)
+# TODO
 ```
 
 ```python
-import kittn
-
-api = kittn.authorize('meowmeowmeow')
-api.kittens.delete(2)
+// TODO
 ```
 
 ```shell
-curl "http://example.com/api/kittens/2" \
-  -X DELETE \
-  -H "Authorization: meowmeowmeow"
+# TODO
 ```
 
 ```javascript
-const kittn = require('kittn');
-
-let api = kittn.authorize('meowmeowmeow');
-let max = api.kittens.delete(2);
+// TODO
 ```
 
 > The above command returns JSON structured like this:
 
 ```json
 {
-  "id": 2,
-  "deleted" : ":("
+  "TO": "DO",
 }
 ```
 
-This endpoint deletes a specific kitten.
+This endpoint gets a specific process.
 
 ### HTTP Request
 
-`DELETE http://example.com/kittens/<ID>`
+`DELETE http://example.com/v1/data/processos/:id`
 
 ### URL Parameters
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to delete
+ID | The ID
 
