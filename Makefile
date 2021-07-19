@@ -1,7 +1,11 @@
 .PHONY: build
 build:
-	docker run --rm --name slate -v $(shell pwd)/build:/srv/slate/build -v $(shell pwd)/source:/srv/slate/source slatedocs/slate
+	docker build . -t developer-docs-public
 
 .PHONY: start
 start:
-	docker run --rm --name slate -p 4567:4567 -v $(shell pwd)/source:/srv/slate/source slatedocs/slate serve
+	docker run --rm \
+		--name slate \
+		-p 4567:4567 \
+		-v $(shell pwd)/source:/srv/slate/source \
+		developer-docs-public serve
