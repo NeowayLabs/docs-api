@@ -1,7 +1,7 @@
 # Unique header generation
 require './lib/unique_head.rb'
 
-activate :i18n, :langs => [:en, :pt], :mount_at_root => :en
+activate :i18n, :langs => [:en, :pt], :mount_at_root => :pt
 
 # Markdown
 set :markdown_engine, :redcarpet
