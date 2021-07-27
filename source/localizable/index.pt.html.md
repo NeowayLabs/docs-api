@@ -18,7 +18,7 @@ toc_footers:
   - Developed by <a href='https://neoway.com.br'>Neoway</a>
 
 includes:
-  - pt/data
+  - data.pt
 
 search: true
 

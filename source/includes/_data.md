@@ -1,15 +1,10 @@
-# API de Dados
+# Data API
 
-A API de dados fornece informações sobre um domínio específico, identificado por uma chave.
+The data API provides information about a specific domain identified by a key.
 
-Os domínios disponíveis são:
-- pessoas
-- empresas
-- processos
+## Authentication
 
-## Token
-
-> Para obter um token, use esse código:
+> To authentication, use this code:
 
 ```go
 package main
@@ -23,6 +18,7 @@ import (
 )
 
 func main() {
+
   url := "https://api.neoway.com.br/oauth2/token"
   method := "POST"
 
@@ -122,7 +118,7 @@ fetch("https://api.neoway.com.br/oauth2/token", requestOptions)
   .catch(error => console.log('error', error));
 ```
 
-> O retorno será algo como:
+> The above command returns JSON structured like this:
 
 ```json
 {
@@ -133,22 +129,17 @@ fetch("https://api.neoway.com.br/oauth2/token", requestOptions)
 }
 ```
 
-Para acessar a API de dados da Neoway você precisar obter um token de autenticação,
-para depois conseguir os resursos disponíveis através dos endpoints de API.
-
-A API de dados espera que tenha um cabeçalho `Authorization` com o token obtido nesse passo.
-
-Da seguinte maneira:
+Data API expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
 `Authorization: Bearer <your-bearer-token>`
 
 <aside class="notice">
-Você deve alterar o <code>your-bearer-token</code> pelo token obtido no endpoint `oauth/token`.
+You must replace <code>your-bearer-token</code> with your personal API key.
 </aside>
 
-## Obter informações de pessoas
+## Get a Person Data
 
-> Para pegar dados de pessoa, use esse código:
+> To get a person data, use this code:
 
 ```go
 package main
@@ -221,7 +212,7 @@ print(data.decode("utf-8"))
 ```
 
 ```shell
-curl --location --request GET 'https://api.neoway.com.br/v1/data/pessoas/:cpf' \
+curl -X GET 'https://api.neoway.com.br/v1/data/pessoas/:cpf' \
   --header 'Authorization: Bearer <your-bearer-token>'
 ```
 
@@ -253,24 +244,24 @@ fetch("https://api.neoway.com.br/v1/data/pessoas/:cpf", requestOptions)
 }
 ```
 
-Esse endpoint retorna os dados de uma pessoa, pela chave que é o cpf.
+This endpoint returns a person's data.
 
-### Request
+### HTTP Request
 
 `GET https://api.neoway.com.br/v1/data/pessoas/:cpf`
 
-### Parâmetros
+### Path Parameters
 
-Parâmetro | Descrição
+Parameter | Description
 --------- | -----------
-cpf | campo-chave representado pelo cpf para obter os dados da pessoa.
-metadata | Se definido como falso, oculta os metadados. Se verdadeiro, mostra metadados.
+cpf | key field represented by the cpf to obtain a person's data.
+metadata | If set to false, hides metadata. If true, shows metadata.
 
-<aside class="notice">
-Lembre-se - este endpoint precisa de autenticação!
+<aside class="success">
+  Remember — this endpoint needs authentication!
 </aside>
 
-## Obter informação de uma empresa
+## Get a Company Data
 
 ```go
 package main
@@ -282,6 +273,7 @@ import (
 )
 
 func main() {
+
   url := "https://api.neoway.com.br/v1/data/empresas/:cnpj"
   method := "GET"
 
@@ -362,7 +354,7 @@ fetch("https://api.neoway.com.br/v1/data/empresas/:cnpj", requestOptions)
   .catch(error => console.log('error', error));
 ```
 
-> O comando acima retorna um JSON estruturado, como:
+> The above command returns JSON structured like this:
 
 ```json
 {
@@ -374,21 +366,21 @@ fetch("https://api.neoway.com.br/v1/data/empresas/:cnpj", requestOptions)
 }
 ```
 
-Esse endpoint retorna as informaçõse de uma empresa pelo identificador da empresa cnpj.
+This endpoint retrieves a specific company by cnpj key.
 
-<aside class="notice">
-Lembre-se - este endpoint precisa de autenticação!
+<aside class="success">
+  Remember — this endpoint needs authentication!
 </aside>
 
 ### HTTP Request
 
 `GET https://api.neoway.com.br/v1/data/empresas/:cnpj`
 
-### Parâmetros
+### URL Parameters
 
-Parâmetro | Descrição
+Parameter | Description
 --------- | -----------
-cnpj | Número identificador da empresa
+ID | The ID of the kitten to retrieve
 
 ## Get a Specific Process
 
@@ -416,28 +408,28 @@ cnpj | Número identificador da empresa
 }
 ```
 
-Esse endpoint retorna informações de um processo específico.
+This endpoint gets a specific process.
 
-### Request
+### HTTP Request
 
-`GET https://api.neoway.com.br/v1/data/processos/:id`
+`DELETE http://example.com/v1/data/processos/:id`
 
-### Parâmetros
+### URL Parameters
 
-Parâmetro | Descrição
+Parameter | Description
 --------- | -----------
-id | Identificador do processo
+ID | The ID
 
 ## Errors
 
 The Data API uses the following error codes:
 
-Error Code | Meaning
----------- | -------
-400 | Bad Request -- Sua solicitação é inválida.
-401 | Unauthorized -- Token de acesso ausente ou inválido.
-404 | Not Found -- O documento especificado não foi encontrado.
-423 | Locked -- Créditos insuficientes para a operação.
-429 | Too Many Requests -- Você está solicitando muitos documentos, Vá com calma!
-500 | Internal Server Error -- Ocorreu um problema com o nosso servidor. Tente mais tarde
-503 | Service Unavailable -- Estamos temporariamente offline para manutenção. Por favor, tente novamente mais tarde.
+Code | Meaning
+---- | -------
+400 | Bad Request -- Your request is invalid.
+401 | Unauthorized -- Access token is missing or invalid..
+404 | Not Found -- The specified document could not be found.
+423 | Locked -- Insufficient credits for the operation.
+429 | Too Many Requests -- You're requesting too many documents! Slow down!
+500 | Internal Server Error -- We had a problem with our server. Try again later.
+503 | Service Unavailable -- We're temporarily offline for maintenance. Please try again later.
