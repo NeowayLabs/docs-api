@@ -1,11 +1,18 @@
+image = docs-api
+
 .PHONY: build
 build:
-	docker build . -t developer-docs-public
+	docker build . -t $(image)
 
 .PHONY: start
-start:
+start: build
 	docker run --rm \
-		--name slate \
 		-p 4567:4567 \
 		-v $(shell pwd)/source:/srv/slate/source \
-		developer-docs-public serve
+		$(image) serve
+
+.PHONY: publish
+publish: build
+	docker run --rm \
+		-v $(shell pwd):/srv/slate \
+		$(image) ./deploy.sh --push-only
