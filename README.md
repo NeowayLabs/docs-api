@@ -11,15 +11,14 @@ start with [Slate Wiki](https://github.com/slatedocs/slate/wiki).
 
 ## Getting Started
 
-**Note: ** We are using [Docker](https://docker.com) to run this project.
+**Note:** We are using [Docker](https://docker.com) to run this project.
 If you need help, see [Using Slate in Docker](https://github.com/slatedocs/slate/wiki/Using-Slate-in-Docker)
 
 To start the server locally, exec it:
 
 ```shell
-# start locally - at http://localhost:4567
+# start locally
 make start
 ```
 
-View your site at "http://localhost:4567",
-And inspect info at "http://localhost:4567/__middleman"
+Available at [localhost:4567](http://localhost:4567)
