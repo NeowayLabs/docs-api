@@ -1,7 +1,6 @@
 # Docs API
 
-Neoway's API documentation repository!
-
+<p align="center">Neoway's API documentation repository!</p>
 <p align="center"><img src="https://user-images.githubusercontent.com/8009492/127509175-d69c826f-4de2-41f6-9870-bb840b158c74.png" width=700 alt="Screenshot of Example Documentation"></p>
 <p align="center"><em>Check it out at <a href="https://neowaylabs.github.io/docs-api">neowaylabs.github.io/docs-api</a>.</em></p>
 
