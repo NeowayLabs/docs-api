@@ -8,14 +8,17 @@ meta:
     content: Neoway,API,Documentação
 
 language_tabs: # must be one of https://git.io/vQNgJ
-  - shell
+  - shell: cURL
   - go
   - ruby
   - python
   - javascript
 
 toc_footers:
-  - Developed by <a href='https://neoway.com.br'>Neoway</a>
+  - <a href='https://github.com/NeowayLabs' target='_blank'>Comunidade da Neoway</a>
+  - <a href='https://github.com/NeowayLabs/docs-api' target='_blank'>Repositório do projeto</a>
+  - <a href='https://apps.neoway.com.br' target='_blank'>Login na plataforma</a>
+  - <a href='https://neoway.com.br' target='_blank'>Site</a>
 
 includes:
   - data.pt
