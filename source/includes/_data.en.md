@@ -22,9 +22,9 @@ func main() {
   method := "POST"
 
   payload := strings.NewReader(`{ 
-   "application": "rafael-mateus-app",
-   "application_secret": "uMPJMHGsUx" 
-}`)
+   "application": "<your-application-id>",
+   "application_secret": "<your-application-secret>" 
+  }`)
 
   client := &http.Client {
   }
