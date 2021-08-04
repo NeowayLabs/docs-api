@@ -39,9 +39,9 @@ func main() {
   method := "POST"
 
   payload := strings.NewReader(`{ 
-   "application": "rafael-mateus-app",
-   "application_secret": "uMPJMHGsUx" 
-}`)
+   "application": "<your-application-id>",
+   "application_secret": "<your-application-secret>" 
+  }`)
 
   client := &http.Client {
   }
@@ -99,7 +99,6 @@ headers = {
 response = requests.request("POST", url, headers=headers, data=payload)
 
 print(response.text)
-
 ```
 
 ```shell
@@ -134,10 +133,7 @@ fetch("https://api.neoway.com.br/auth/token", requestOptions)
 
 ```json
 {
-  "access_token": "<your-bearer-token>",
-  "expires_in": 1799,
-  "scope": "scope.read",
-  "token_type": "bearer"
+  "token": "<your-token>"
 }
 ```
 
@@ -148,7 +144,7 @@ A API de dados espera que tenha um cabeçalho `Authorization` com o token obtido
 
 Da seguinte maneira:
 
-`Authorization: Bearer <your-bearer-token>`
+`Authorization: Bearer <your-token>`
 
 ### Request
 
@@ -162,7 +158,7 @@ application | Nome identificador da conta de API.
 application_secret | Senha da conta de API.
 
 <aside class="notice">
-Você deve alterar o <code>your-bearer-token</code> pelo token obtido no endpoint `oauth/token`.
+Você deve alterar o <code>your-token</code> pelo token obtido no endpoint `oauth/token`.
 </aside>
 
 ## Obter dados de pessoas
@@ -191,7 +187,7 @@ func main() {
     fmt.Println(err)
     return
   }
-  req.Header.Add("Authorization", "Bearer <your-bearer-token>")
+  req.Header.Add("Authorization", "Bearer <your-token>")
 
   res, err := client.Do(req)
   if err != nil {
@@ -231,7 +227,7 @@ import http.client
 conn = http.client.HTTPSConnection("api.neoway.com.br")
 payload = ''
 headers = {
-  'Authorization': 'Bearer <your-bearer-token>'
+  'Authorization': 'Bearer <your-token>'
 }
 conn.request("GET", "/v1/data/pessoas/:cpf", payload, headers)
 res = conn.getresponse()
@@ -241,12 +237,12 @@ print(data.decode("utf-8"))
 
 ```shell
 curl -X GET 'https://api.neoway.com.br/v1/data/pessoas/:cpf' \
-  --header 'Authorization: Bearer <your-bearer-token>'
+  --header 'Authorization: Bearer <your-token>'
 ```
 
 ```javascript
 var myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer <your-bearer-token>");
+myHeaders.append("Authorization", "Bearer <your-token>");
 
 var requestOptions = {
   method: 'GET',
@@ -312,7 +308,7 @@ func main() {
     fmt.Println(err)
     return
   }
-  req.Header.Add("Authorization", "Bearer <your-bearer-token>")
+  req.Header.Add("Authorization", "Bearer <your-token>")
 
   res, err := client.Do(req)
   if err != nil {
@@ -340,7 +336,7 @@ https = Net::HTTP.new(url.host, url.port)
 https.use_ssl = true
 
 request = Net::HTTP::Get.new(url)
-request["Authorization"] = "Bearer <your-bearer-token>"
+request["Authorization"] = "Bearer <your-token>"
 
 response = https.request(request)
 puts response.read_body
@@ -352,7 +348,7 @@ import http.client
 conn = http.client.HTTPSConnection("api.neoway.com.br")
 payload = ''
 headers = {
-  'Authorization': 'Bearer <your-bearer-token>'
+  'Authorization': 'Bearer <your-token>'
 }
 conn.request("GET", "/v1/data/empresas/:cnpj", payload, headers)
 res = conn.getresponse()
@@ -362,12 +358,12 @@ print(data.decode("utf-8"))
 
 ```shell
 curl -X GET 'https://api.neoway.com.br/v1/data/empresas/:cnpj' \
-  --header 'Authorization: Bearer <your-bearer-token>'
+  --header 'Authorization: Bearer <your-token>'
 ```
 
 ```javascript
 var myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer <your-bearer-token>");
+myHeaders.append("Authorization", "Bearer <your-token>");
 
 var requestOptions = {
   method: 'GET',
@@ -464,4 +460,4 @@ Status | Descrição | Cobrado?
 423 - Locked | Créditos insuficientes para a operação. | Não
 429 - Too Many Requests | Você está solicitando muitos documentos, Vá com calma! | Não
 500 - Internal Server Error | Ocorreu um problema com o nosso servidor. Tente mais tarde. | Não
-503 | Service Unavailable -- Estamos temporariamente offline para manutenção. Por favor, tente novamente mais tarde. | Não
+503 - Service Unavailable | Estamos temporariamente offline para manutenção. Por favor, tente novamente mais tarde. | Não

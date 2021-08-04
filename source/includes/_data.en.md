@@ -11,28 +11,20 @@ package main
 
 import (
   "fmt"
-  "bytes"
-  "mime/multipart"
+  "strings"
   "net/http"
   "io/ioutil"
 )
 
 func main() {
 
-  url := "https://api.neoway.com.br/oauth2/token"
+  url := "https://api.neoway.com.br/auth/token"
   method := "POST"
 
-  payload := &bytes.Buffer{}
-  writer := multipart.NewWriter(payload)
-  _ = writer.WriteField("client_id", "<your-client-id")
-  _ = writer.WriteField("client_secret", "<your-client-secret>")
-  _ = writer.WriteField("grant_type", "client_credentials")
-  err := writer.Close()
-  if err != nil {
-    fmt.Println(err)
-    return
-  }
-
+  payload := strings.NewReader(`{ 
+   "application": "<your-application-id>",
+   "application_secret": "<your-application-secret>" 
+  }`)
 
   client := &http.Client {
   }
@@ -42,9 +34,8 @@ func main() {
     fmt.Println(err)
     return
   }
-  req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
+  req.Header.Add("Content-Type", "application/json")
 
-  req.Header.Set("Content-Type", writer.FormDataContentType())
   res, err := client.Do(req)
   if err != nil {
     fmt.Println(err)
@@ -65,15 +56,15 @@ func main() {
 require "uri"
 require "net/http"
 
-url = URI("https://api.neoway.com.br/oauth2/token")
+url = URI("https://api.neoway.com.br/auth/token")
 
 https = Net::HTTP.new(url.host, url.port)
 https.use_ssl = true
 
 request = Net::HTTP::Post.new(url)
-request["Content-Type"] = "application/x-www-form-urlencoded"
-form_data = [['client_id', '<your-client-id'],['client_secret', '<your-client-secret>'],['grant_type', 'client_credentials']]
-request.set_form form_data, 'multipart/form-data'
+request["Content-Type"] = "application/json"
+request.body = "{ \n   \"application\": \"<your-application-id>\",\n   \"application_secret\": \"<your-application-secret>\" \n}"
+
 response = https.request(request)
 puts response.read_body
 ```
@@ -81,38 +72,41 @@ puts response.read_body
 ```python
 import requests
 
+url = "https://api.neoway.com.br/auth/token"
+
+payload="{ \n   \"application\": \"<your-application-id>\",\n   \"application_secret\": \"<your-application-id>\" \n}"
 headers = {
-    'Content-Type': 'application/x-www-form-urlencoded',
+  'Content-Type': 'application/json'
 }
 
-response = requests.post('https://api.neoway.com.br/oauth2/token', headers=headers)
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.text)
 ```
 
 ```shell
-curl -X POST 'https://api.neoway.com.br/oauth2/token' \
-  --header 'Content-Type: application/x-www-form-urlencoded' \
-  --form 'client_id="<your-client-id>"' \
-  --form 'client_secret="<your-client-secret>"' \
-  --form 'grant_type="client_credentials"'
+curl -X POST 'https://api.neoway.com.br/auth/token' \
+  --header 'Content-Type: application/json' \
+  --data-raw '{ 
+    "application": "<your-application-id>",
+    "application_secret": "<your-application-secret>"
+  }'
 ```
 
 ```javascript
 var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+myHeaders.append("Content-Type", "application/json");
 
-var formdata = new FormData();
-formdata.append("client_id", "<your-client-id>");
-formdata.append("client_secret", "<your-client-secret>");
-formdata.append("grant_type", "client_credentials");
+var raw = JSON.stringify({"application":"<your-application-id>","application_secret":"<your-application-secret>"});
 
 var requestOptions = {
   method: 'POST',
   headers: myHeaders,
-  body: formdata,
+  body: raw,
   redirect: 'follow'
 };
 
-fetch("https://api.neoway.com.br/oauth2/token", requestOptions)
+fetch("https://api.neoway.com.br/auth/token", requestOptions)
   .then(response => response.text())
   .then(result => console.log(result))
   .catch(error => console.log('error', error));
@@ -122,19 +116,16 @@ fetch("https://api.neoway.com.br/oauth2/token", requestOptions)
 
 ```json
 {
-  "access_token": "<your-bearer-token>",
-  "expires_in": 1799,
-  "scope": "scope.read",
-  "token_type": "bearer"
+  "token": "<your-token>"
 }
 ```
 
 Data API expects for the API key to be included in all API requests to the server in a header that looks like the following:
 
-`Authorization: Bearer <your-bearer-token>`
+`Authorization: Bearer <your-token>`
 
 <aside class="notice">
-You must replace <code>your-bearer-token</code> with your personal API key.
+You must replace <code>your-token</code> with your personal API key.
 </aside>
 
 ## Get a Person Data
@@ -163,7 +154,7 @@ func main() {
     fmt.Println(err)
     return
   }
-  req.Header.Add("Authorization", "Bearer <your-bearer-token>")
+  req.Header.Add("Authorization", "Bearer <your-token>")
 
   res, err := client.Do(req)
   if err != nil {
@@ -203,7 +194,7 @@ import http.client
 conn = http.client.HTTPSConnection("api.neoway.com.br")
 payload = ''
 headers = {
-  'Authorization': 'Bearer <your-bearer-token>'
+  'Authorization': 'Bearer <your-token>'
 }
 conn.request("GET", "/v1/data/pessoas/:cpf", payload, headers)
 res = conn.getresponse()
@@ -213,12 +204,12 @@ print(data.decode("utf-8"))
 
 ```shell
 curl -X GET 'https://api.neoway.com.br/v1/data/pessoas/:cpf' \
-  --header 'Authorization: Bearer <your-bearer-token>'
+  --header 'Authorization: Bearer <your-token>'
 ```
 
 ```javascript
 var myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer <your-bearer-token>");
+myHeaders.append("Authorization", "Bearer <your-token>");
 
 var requestOptions = {
   method: 'GET',
@@ -285,7 +276,7 @@ func main() {
     fmt.Println(err)
     return
   }
-  req.Header.Add("Authorization", "Bearer <your-bearer-token>")
+  req.Header.Add("Authorization", "Bearer <your-token>")
 
   res, err := client.Do(req)
   if err != nil {
@@ -313,7 +304,7 @@ https = Net::HTTP.new(url.host, url.port)
 https.use_ssl = true
 
 request = Net::HTTP::Get.new(url)
-request["Authorization"] = "Bearer <your-bearer-token>"
+request["Authorization"] = "Bearer <your-token>"
 
 response = https.request(request)
 puts response.read_body
@@ -325,7 +316,7 @@ import http.client
 conn = http.client.HTTPSConnection("api.neoway.com.br")
 payload = ''
 headers = {
-  'Authorization': 'Bearer <your-bearer-token>'
+  'Authorization': 'Bearer <your-token>'
 }
 conn.request("GET", "/v1/data/empresas/:cnpj", payload, headers)
 res = conn.getresponse()
@@ -335,12 +326,12 @@ print(data.decode("utf-8"))
 
 ```shell
 curl -X GET 'https://api.neoway.com.br/v1/data/empresas/:cnpj' \
-  --header 'Authorization: Bearer <your-bearer-token>'
+  --header 'Authorization: Bearer <your-token>'
 ```
 
 ```javascript
 var myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer <your-bearer-token>");
+myHeaders.append("Authorization", "Bearer <your-token>");
 
 var requestOptions = {
   method: 'GET',
@@ -420,16 +411,17 @@ Parameter | Description
 --------- | -----------
 ID | The ID
 
-## Errors
+## Response Status
 
 The Data API uses the following error codes:
 
-Code | Meaning
----- | -------
-400 | Bad Request -- Your request is invalid.
-401 | Unauthorized -- Access token is missing or invalid..
-404 | Not Found -- The specified document could not be found.
-423 | Locked -- Insufficient credits for the operation.
-429 | Too Many Requests -- You're requesting too many documents! Slow down!
-500 | Internal Server Error -- We had a problem with our server. Try again later.
-503 | Service Unavailable -- We're temporarily offline for maintenance. Please try again later.
+Code | Description | Ticketed?
+---- | ----------- | --------
+200 - OK | Sua requisição foi respondida com sucesso. | Yes
+400 - Bad Request | Your request is invalid. | No
+401 - Unauthorized | Access token is missing or invalid. | No
+404 - Not Found | The specified document could not be found. | No
+423 - Locked | Insufficient credits for the operation. | No
+429 - Too Many Requests | You're requesting too many documents! Slow down! | No
+500 - Internal Server Error | We had a problem with our server. Try again later. | No
+503 - Service Unavailable | We're temporarily offline for maintenance. Please try again later. | No
