@@ -371,45 +371,7 @@ This endpoint retrieves a specific company by cnpj key.
 
 Parameter | Description
 --------- | -----------
-ID | The ID of the kitten to retrieve
-
-## Get a Specific Process
-
-```ruby
-# TODO
-```
-
-```python
-// TODO
-```
-
-```shell
-# TODO
-```
-
-```javascript
-// TODO
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "TO": "DO",
-}
-```
-
-This endpoint gets a specific process.
-
-### HTTP Request
-
-`DELETE http://example.com/v1/data/processos/:id`
-
-### URL Parameters
-
-Parameter | Description
---------- | -----------
-ID | The ID
+cnpj | The CNPJ identifier of company
 
 ## Response Status
 

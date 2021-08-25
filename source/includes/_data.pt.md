@@ -405,48 +405,6 @@ Parâmetro | Descrição
 --------- | -----------
 cnpj | Número identificador da empresa
 
-## Obter dados de processos
-
-```ruby
-# TODO
-```
-
-```python
-// TODO
-```
-
-```shell
-# TODO
-```
-
-```javascript
-// TODO
-```
-
-> The above command returns JSON structured like this:
-
-```json
-{
-  "TO": "DO",
-}
-```
-
-Esse endpoint retorna informações de um processo específico.
-
-<aside class="notice">
-Lembre-se - este endpoint precisa de autenticação!
-</aside>
-
-### Request
-
-`GET https://api.neoway.com.br/v1/data/processos/:id`
-
-### Parâmetros
-
-Parâmetro | Descrição
---------- | -----------
-id | Identificador do processo
-
 ## Status de Respostas
 
 A API de dados tem os seguintes status de respostas:
