@@ -16,7 +16,6 @@ language_tabs: # must be one of https://git.io/vQNgJ
 
 toc_footers:
   - <a href='https://github.com/NeowayLabs' target='_blank'>Neoway Community</a>
-  - <a href='https://github.com/NeowayLabs/docs-api' target='_blank'>Project repositoty</a>
   - <a href='https://apps.neoway.com.br' target='_blank'>Sign in</a>
   - <a href='https://neoway.com.br' target='_blank'>Website</a>
 
