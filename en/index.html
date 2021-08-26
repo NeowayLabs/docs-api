@@ -283,8 +283,8 @@
   color: #859900;
 }
     </style>
-    <link href="../stylesheets/screen-13b6c03f.css" rel="stylesheet" media="screen" />
-    <link href="../stylesheets/print-b290a0a5.css" rel="stylesheet" media="print" />
+    <link href="../stylesheets/screen-fc506ee5.css" rel="stylesheet" media="screen" />
+    <link href="../stylesheets/print-1914bf05.css" rel="stylesheet" media="print" />
       <script src="../javascripts/all-50d1117d.js"></script>
 
     <script>
@@ -327,6 +327,9 @@
                   </li>
                   <li>
                     <a href="#get-a-company-data" class="toc-h2 toc-link" data-title="Get a Company Data">Get a Company Data</a>
+                  </li>
+                  <li>
+                    <a href="#get-a-specific-process" class="toc-h2 toc-link" data-title="Get a Specific Process">Get a Specific Process</a>
                   </li>
                   <li>
                     <a href="#response-status" class="toc-h2 toc-link" data-title="Response Status">Response Status</a>
@@ -686,8 +689,35 @@ You must replace <code>your-token</code> with your personal API key.
 </tr>
 </thead><tbody>
 <tr>
-<td>cnpj</td>
-<td>The CNPJ identifier of company</td>
+<td>ID</td>
+<td>The ID of the kitten to retrieve</td>
+</tr>
+</tbody></table>
+<h2 id='get-a-specific-process'>Get a Specific Process</h2><div class="highlight"><pre class="highlight ruby tab-ruby"><code><span class="c1"># TODO</span>
+</code></pre></div><div class="highlight"><pre class="highlight python tab-python"><code><span class="o">//</span> <span class="n">TODO</span>
+</code></pre></div><div class="highlight"><pre class="highlight shell tab-shell"><code><span class="c"># TODO</span>
+</code></pre></div><div class="highlight"><pre class="highlight javascript tab-javascript"><code><span class="c1">// TODO</span>
+</code></pre></div>
+<blockquote>
+<p>The above command returns JSON structured like this:</p>
+</blockquote>
+<div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"TO"</span><span class="p">:</span><span class="w"> </span><span class="s2">"DO"</span><span class="p">,</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div>
+<p>This endpoint gets a specific process.</p>
+<h3 id='http-request-3'>HTTP Request</h3>
+<p><code>DELETE http://example.com/v1/data/processos/:id</code></p>
+<h3 id='url-parameters-2'>URL Parameters</h3>
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>ID</td>
+<td>The ID</td>
 </tr>
 </tbody></table>
 <h2 id='response-status'>Response Status</h2>
