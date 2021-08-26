@@ -30,6 +30,8 @@ code_clipboard: true
 
 # Introduction
 
+<a class="button" href="/">Português</a><a href="#" class="button button-pressed">English</a>
+
 Welcome to [Neoway](https://neoway.com.br) API documentation!
 
 We have language bindings in Shell, Go, Ruby, Python, and JavaScript! You can view code examples in the dark area to the right, and you can switch the programming language of the examples with the tabs in the top right.
