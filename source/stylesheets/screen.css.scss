@@ -37,6 +37,12 @@ html, body {
   -webkit-text-size-adjust: none; /* Never autoresize text */
 }
 
+@import url("https://fonts.googleapis.com/css?family=Rajdhani");html {
+  font-family: sans-serif;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // TABLE OF CONTENTS
 ////////////////////////////////////////////////////////////////////////////////
