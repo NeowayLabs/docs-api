@@ -29,6 +29,8 @@ code_clipboard: true
 
 # Introdução
 
+<a class="button button-pressed" href="#">Português</a><a href="/en" class="button">English</a>
+
 Bem vindo ao portal de documentação de API da [Neoway](https://neoway.com.br)!
 
 Para facilitar a integração com seu negócio, temos disponíveis as
