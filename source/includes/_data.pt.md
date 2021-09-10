@@ -6,14 +6,12 @@ Os domínios disponíveis são:
 
 * pessoas
 * empresas
-* processos
 
 Através do endereço padrão desse serviço `/v1/data/:domain`,
 especificar o domínio de obtenção de dados, como por exemplo:
 
 * `/v1/data/pessoas/:cpf`
 * `/v1/data/empresas/:cnpj`
-* `/v1/data/processos/:id-do-processo`.
 
 Abaixo teremos detalhes de cada uma das requisições.
 Mas antes de consumir qualquer endpoint desse, certifique-se que
