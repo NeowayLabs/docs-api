@@ -64,5 +64,6 @@ collections available.
 
 ## Commercial
 
-To get an API account, contact us
-[here](https://cloud.conteudo.neoway.com.br/lp-api).
+To get an API account, contact us.
+
+<a class="button" href="https://cloud.conteudo.neoway.com.br/lp-api">Get an API Account</a>

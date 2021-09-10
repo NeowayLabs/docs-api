@@ -63,5 +63,6 @@ Se você preferir, temos disponíveis as collections do [Postman](https://www.po
 
 ## Comercial
 
-Para obter uma conta de API, entre em contato conosco
-[aqui](https://cloud.conteudo.neoway.com.br/lp-api).
+Para obter uma conta de API, entre em contato conosco.
+
+<a class="button" href="https://cloud.conteudo.neoway.com.br/lp-api">Obter uma conta de API</a>
