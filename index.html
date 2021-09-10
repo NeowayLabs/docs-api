@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>Neoway API</title>
+    <title>Neoway for Developers</title>
     <link href="images/favicon-2f72fbc8.webp" rel="icon" type="image/webp" />
 
     <style media="screen">
@@ -314,7 +314,18 @@
         <ul class="search-results"></ul>
       <ul id="toc" class="toc-list-h1">
           <li>
-            <a href="#introducao" class="toc-h1 toc-link" data-title="Introdução">Introdução</a>
+            <a href="#neoway-for-developers" class="toc-h1 toc-link" data-title="Neoway for Developers">Neoway for Developers</a>
+              <ul class="toc-list-h2">
+                  <li>
+                    <a href="#sobre-a-neoway" class="toc-h2 toc-link" data-title="Sobre a Neoway">Sobre a Neoway</a>
+                  </li>
+                  <li>
+                    <a href="#apis-da-neoway" class="toc-h2 toc-link" data-title="APIs da Neoway">APIs da Neoway</a>
+                  </li>
+                  <li>
+                    <a href="#comercial" class="toc-h2 toc-link" data-title="Comercial">Comercial</a>
+                  </li>
+              </ul>
           </li>
           <li>
             <a href="#api-de-dados" class="toc-h1 toc-link" data-title="API de Dados">API de Dados</a>
@@ -343,17 +354,27 @@
     <div class="page-wrapper">
       <div class="dark-box"></div>
       <div class="content">
-        <h1 id='introducao'>Introdução</h1>
+        <h1 id='neoway-for-developers'>Neoway for Developers</h1>
 <p><a class="button button-pressed" href="#">Português</a><a href="/en" class="button">English</a></p>
 
-<p>Bem vindo ao portal de documentação de API da <a href="https://neoway.com.br">Neoway</a>!</p>
+<p><strong>SEJA BEM-VINDO E BEM-VINDA A DOCUMENTAÇÂO DA NEOWAY</strong></p>
 
-<p>Para facilitar a integração com seu negócio, temos disponíveis as
-linguagens Shell, Go, Ruby, Python and Javascript.
-Você pode ver os exemplos de código na área escura à direita
-e pode alternar a linguagem de programação dos exemplos com as guias no canto superior direito.</p>
+<p>Nesse portal, você poderá acessar a documentação das APIs da Neoway.</p>
+<h2 id='sobre-a-neoway'>Sobre a Neoway</h2>
+<p>A Neoway oferece soluções inteligentes que transformam informação em conhecimento e geram produtividade e precisão para as estratégias de marketing, compliance, prevenção contra perdas, entre outros.</p>
 
-<p>Nesse portal você terá acesso as APIs da Neoway e obter informações documentos em nosso banco de dados.</p>
+<p>As APIs permitem que os sistemas consultem diretamente a nossa base de dados para obter e atualizar, sob demanda, as informações relevantes para os seus negócios.</p>
+<h2 id='apis-da-neoway'>APIs da Neoway</h2>
+<p>Essa página irá te instruir sobre como utilizar as APIs da Neoway.</p>
+
+<p>Aqui você tem acesso a informações sobre como se autenticar,
+visualizar códigos de exemplo para fazer requisição,
+bilhetagem, formatos e status code da resposta.</p>
+
+<p>Para facilitar a integração com seu negócio, temos disponíveis as linguagens
+<strong>Shell</strong>, <strong>Go</strong>, <strong>Ruby</strong>, <strong>Python</strong> e <strong>Javascript</strong>.
+Veja os exemplos de código na área escura à direita
+e escolha a linguagem de programação dos exemplos com as guias no canto superior direito.</p>
 
 <p>Se você preferir, temos disponíveis as collections do <a href="https://www.postman.com">Postman</a>.</p>
 
@@ -361,6 +382,10 @@ e pode alternar a linguagem de programação dos exemplos com as guias no canto 
   data-postman-action="collection/import"
   data-postman-var-1="864f0579179de207592f">
 </div>
+<h2 id='comercial'>Comercial</h2>
+<p>Para obter uma conta de API, entre em contato conosco.</p>
+
+<p><a class="button" href="https://cloud.conteudo.neoway.com.br/lp-api">Obter uma conta de API</a></p>
 <h1 id='api-de-dados'>API de Dados</h1>
 <p>A API de dados fornece informações sobre um domínio específico, identificado por uma chave.</p>
 
@@ -597,7 +622,7 @@ Você deve alterar o <code>your-token</code> pelo token obtido no endpoint `oaut
   <span class="p">.</span><span class="k">catch</span><span class="p">(</span><span class="nx">error</span> <span class="o">=&gt;</span> <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="dl">'</span><span class="s1">error</span><span class="dl">'</span><span class="p">,</span> <span class="nx">error</span><span class="p">));</span>
 </code></pre></div>
 <blockquote>
-<p>The above command returns JSON structured like this:</p>
+<p>O comando acima retorna um JSON estruturado, como:</p>
 </blockquote>
 <div class="highlight"><pre class="highlight json tab-json"><code><span class="p">{</span><span class="w">
   </span><span class="nl">"pessoa"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
@@ -624,6 +649,10 @@ Lembre-se - este endpoint precisa de autenticação!
 <tr>
 <td>cpf</td>
 <td>campo-chave representado pelo cpf para obter os dados da pessoa.</td>
+</tr>
+<tr>
+<td>fields</td>
+<td>Use esse parâmetro para filtrar os campos que serão retornados.</td>
 </tr>
 <tr>
 <td>metadata</td>
@@ -733,7 +762,15 @@ Lembre-se - este endpoint precisa de autenticação!
 </thead><tbody>
 <tr>
 <td>cnpj</td>
-<td>Número identificador da empresa</td>
+<td>Número identificador da empresa.</td>
+</tr>
+<tr>
+<td>fields</td>
+<td>Use esse parâmetro para filtrar os campos que serão retornados.</td>
+</tr>
+<tr>
+<td>metadata</td>
+<td>Se definido como falso, oculta os metadados. Se verdadeiro, mostra metadados.</td>
 </tr>
 </tbody></table>
 <h2 id='status-de-respostas'>Status de Respostas</h2>
