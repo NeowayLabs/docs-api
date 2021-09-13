@@ -66,4 +66,4 @@ collections available.
 
 To get an API account, contact us.
 
-<a class="button" href="https://cloud.conteudo.neoway.com.br/lp-api">Get an API Account</a>
+<a class="button" href="https://cloud.conteudo.neoway.com.br/lp-api-ingles">Get an API Account</a>
