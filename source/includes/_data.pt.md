@@ -254,7 +254,7 @@ fetch("https://api.neoway.com.br/v1/data/pessoas/:cpf", requestOptions)
   .catch(error => console.log('error', error));
 ```
 
-> The above command returns JSON structured like this:
+> O comando acima retorna um JSON estruturado, como:
 
 ```json
 {
@@ -281,6 +281,7 @@ Lembre-se - este endpoint precisa de autenticação!
 Parâmetro | Descrição
 --------- | -----------
 cpf | campo-chave representado pelo cpf para obter os dados da pessoa.
+fields | Use esse parâmetro para filtrar os campos que serão retornados.
 metadata | Se definido como falso, oculta os metadados. Se verdadeiro, mostra metadados.
 
 ## Obter dados de empresas
@@ -401,7 +402,9 @@ Lembre-se - este endpoint precisa de autenticação!
 
 Parâmetro | Descrição
 --------- | -----------
-cnpj | Número identificador da empresa
+cnpj | Número identificador da empresa.
+fields | Use esse parâmetro para filtrar os campos que serão retornados.
+metadata | Se definido como falso, oculta os metadados. Se verdadeiro, mostra metadados.
 
 ## Status de Respostas
 

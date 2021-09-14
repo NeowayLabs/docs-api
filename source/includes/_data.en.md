@@ -2,6 +2,21 @@
 
 The data API provides information about a specific domain identified by a key.
 
+The available domains are:
+
+* pessoas
+* empresas
+
+Through the standard address of this service `/v1/data/:domain`,
+specify the data collection domain, for example:
+
+* `/v1/data/pessoas/:cpf`
+* `/v1/data/empresas/:cnpj`
+
+Below we have details of each of the requests.
+Before consuming any such endpoint, make sure you have obtained
+a resource access token from the protected service.
+
 ## Authentication
 
 > To authentication, use this code:
@@ -120,13 +135,11 @@ fetch("https://api.neoway.com.br/auth/token", requestOptions)
 }
 ```
 
-Data API expects for the API key to be included in all API requests to the server in a header that looks like the following:
+To access Neoway's Data API you need to obtain an authentication token.
+
+The Data API expects the header `Authorization` using type `Bearer`.
 
 `Authorization: Bearer <your-token>`
-
-<aside class="notice">
-You must replace <code>your-token</code> with your personal API key.
-</aside>
 
 ## Get a Person Data
 
@@ -246,9 +259,10 @@ This endpoint returns a person's data.
 Parameter | Description
 --------- | -----------
 cpf | key field represented by the cpf to obtain a person's data.
+fields | Use this parameter to filter the reponse fields.
 metadata | If set to false, hides metadata. If true, shows metadata.
 
-<aside class="success">
+<aside class="notice">
   Remember — this endpoint needs authentication!
 </aside>
 
@@ -359,7 +373,7 @@ fetch("https://api.neoway.com.br/v1/data/empresas/:cnpj", requestOptions)
 
 This endpoint retrieves a specific company by cnpj key.
 
-<aside class="success">
+<aside class="notice">
   Remember — this endpoint needs authentication!
 </aside>
 
@@ -372,6 +386,8 @@ This endpoint retrieves a specific company by cnpj key.
 Parameter | Description
 --------- | -----------
 cnpj | The CNPJ identifier of company
+fields | Use this parameter to filter the reponse fields.
+metadata | If set to false, hides metadata. If true, shows metadata.
 
 ## Response Status
 
@@ -379,7 +395,7 @@ The Data API uses the following error codes:
 
 Code | Description | Ticketed?
 ---- | ----------- | --------
-200 - OK | Sua requisição foi respondida com sucesso. | Yes
+200 - OK | Indicates that the request has succeeded. | Yes
 400 - Bad Request | Your request is invalid. | No
 401 - Unauthorized | Access token is missing or invalid. | No
 404 - Not Found | The specified document could not be found. | No
