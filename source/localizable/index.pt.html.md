@@ -61,6 +61,10 @@ Se você preferir, temos disponíveis as collections do [Postman](https://www.po
   data-postman-var-1="864f0579179de207592f">
 </div>
 
+<aside class="warning">
+  Para utilização das API's é necessário o protocolo TLS 1.2 ou superior.
+</aside>
+
 ## Comercial
 
 Para obter uma conta de API, entre em contato conosco.
