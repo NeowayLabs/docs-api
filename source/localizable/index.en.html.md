@@ -62,6 +62,10 @@ collections available.
   data-postman-var-1="864f0579179de207592f">
 </div>
 
+<aside class="warning">
+  To use the API's, the TLS 1.2 protocol or higher is required.
+</aside>
+
 ## Commercial
 
 To get an API account, contact us.
